@@ -1,0 +1,22 @@
+<script id=new_game_template type=text/x-handlebars-template><div>
+  <form id="new-game-form">
+  <h4>Create A New Game</h4>
+
+  <div class="form-row">
+    <label for="new-game-name">Game Name: </label>
+    <input name="new-game-name" type="text" id="new-game-name"></input>
+    <input id="submit-new-game" name="submit-new-game" type="submit" value="Create">
+  </div>
+
+  <div class="form-row">
+  <label>Add Players: </label>
+    {{#players}}
+      <label>
+        <span>{{username}}</span>
+        <input name="select-players" type="checkbox" value="{{id}}" checked>
+      </label>
+    {{/players}}
+  </div>
+
+  </form>
+</div></script>
