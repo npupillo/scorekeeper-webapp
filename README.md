@@ -4,7 +4,7 @@
 
 ## Project: ScoreKeeper
 - HTML, CSS, jQuery, Bootstrap, Backbone, Handlebars, Highcharts, Ruby on Rails API
-- Deployed to GitHub Pages: http://npupillo.github.io/scorekeeper
+- Deployed to GitHub Pages: http://npupillo.github.io/scorekeeper-webapp
 
 ## Description:
 Keep track of player scores!
