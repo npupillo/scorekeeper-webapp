@@ -1,0 +1,28 @@
+<h2>showGame.html</h2>
+<script id="one_game_template" type="text/x-handlebars-template">
+
+{{#game}}
+
+  <h3>Game: {{name}}</h3>
+
+  {{#each players}}
+    Username: {{username}}, {{email}} <br>
+  {{/each}}
+  <br>
+
+  {{#each scores}}
+     Player ID: {{player_id}} | Points:{{points}} <br>
+  {{/each}}
+
+{{/game}}
+
+
+    <tbody>
+      {{#game}}
+
+
+      {{/game}}
+    </tbody>
+  </table>
+
+</script>

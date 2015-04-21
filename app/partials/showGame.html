@@ -1,0 +1,30 @@
+<script id="one_game_template" type="text/x-handlebars-template">
+
+{{#game}}
+<table class="table table-striped">
+
+  <h3>Game: {{name}}</h3>
+  <h5>Start Date: {{start_date}}</h5>
+  <h5>End Date: {{end_date}}</h5>
+  <h5>Status: {{status}}</h5>
+
+  {{#each players}}
+    <tr>
+      <td>{{username}}<td>
+      {{#each scores}}
+      <td>
+        {{points}}
+      </td>
+      {{/each}}
+    </tr>
+  {{/each}}
+
+</table>
+{{/game}}
+
+<div id="chart_container" class="all_charts"></div>
+
+</script>
+
+
+

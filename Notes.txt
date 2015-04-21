@@ -1,0 +1,34 @@
+Installing additional libraries:
+  $ bower install backbone --save
+  $ bower install handlebars --save
+  $ bower install highcharts-release --save
+
+showGame.js:
+  ** Troubleshooting, works in JS console: iterate each player then each player's score & keep only current game's scores
+  var filterScores = function(data){
+    for(var p = 0; p < data.players.length; p++){
+      for(var s = 0; s < data.players[p].scores.length; s++){
+       if(data.players[p].scores[s].game_id == data.id){
+         console.log(data.players[p].scores[s]);
+       }
+      }
+    }
+    renderScores(data);
+  };
+
+  ** Troubleshooting w/ Jason, calculate score totals:
+  var calculatePlayerScore = function(data){
+    var sum = 0;
+    //console.log(game.players[0].scores[0]);
+    for (var x in data.players[0].scores){
+        console.log(data.players[0].scores[x]['points']);
+        sum += data.players[0].scores[x]['points'];
+    }
+    console.log(sum);
+  };
+
+Resources:
+  Highcharts:
+  Populate Highcharts with JSON data using jQuery
+  http://karanbalkar.com/2014/06/populate-highcharts-with-json-data-using-jquery/
+
