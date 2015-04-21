@@ -83,7 +83,7 @@ var showGame = (function(module){
   }
 
   module.init = function(id){
-    console.log('inside showGame.init , the game id is: ' + id);
+    // console.log('inside showGame.init , the game id is: ' + id);
     $.ajax({
     url: router.host + '/games/' + id,
     type: 'GET',

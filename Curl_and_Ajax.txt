@@ -1,0 +1,180 @@
+GAMES:
+  # Get all games:
+  curl localhost:3000/games
+
+  # Get game with ID of 1
+  curl localhost:3000/games/1
+
+  # Create a game
+  curl -X POST -d "game[name]=Some Card Game" -d "game[status]=active" -d "game[start_date]=Apr 1 2015" http://localhost:3000/games
+
+  # Update a game
+  curl -X PATCH -d "game[name]=Uno 3" http://localhost:3000/games/3
+
+  # Get all games
+  $.ajax({
+    url: 'http://localhost:3000/games',
+    type: 'GET',
+    dataType: 'JSON'
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+  # Get game with ID of 2
+  $.ajax({
+    url: 'http://localhost:3000/games/2',
+    type: 'GET',
+    dataType: 'JSON'
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+  # Create a game
+  $.ajax({
+    url: 'http://localhost:3000/games',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+      game: {
+      name: 'New Ajax Game',
+      status: 'active',
+      start_date: 'Apr 1 2015'
+      }
+    },
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+  # Update game 4
+  $.ajax({
+    url: 'http://localhost:3000/games/4',
+    type: 'PATCH',
+    dataType: 'JSON',
+    data: {
+      game: {
+        name: 'New Dice Game',
+        status: 'inactive',
+        end_date: 'Apr 1 2015'
+      }
+    },
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+SCORES:
+  # Get all scores
+  $.ajax({
+    url: 'http://localhost:3000/scores',
+    type: 'GET',
+    dataType: 'JSON'
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+  # Create a score: Player 2 in Game 3
+  curl -X POST -d "score[pscore]=4" -d "score[round]=1" -d "score[player_id]=1" -d "score[game_id]=3" http://localhost:3000/scores
+
+  # Create a score
+  $.ajax({
+      url: 'http://scorekeeper-api.herokuapp.com/scores',
+      type: 'POST',
+      dataType: 'JSON',
+      data: {
+        score: {
+          points: 2,
+          player_id: 1,
+          game_id: 2
+        }
+      },
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+======
+  # Create a score - use gameplayer_id
+  $.ajax({
+      url: 'http://localhost:3000/scores',
+      type: 'POST',
+      dataType: 'JSON',
+      data: {
+        score: {
+          points: 5,
+          gameplayer_id: 7,
+        }
+      },
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+=====
+PLAYERS:
+  # Get all players
+  $.ajax({
+    url: 'http://localhost:3000/players',
+    type: 'GET',
+    dataType: 'JSON'
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+  # Get player with ID of 2
+  $.ajax({
+    url: 'http://localhost:3000/players/2',
+    type: 'GET',
+    dataType: 'JSON'
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+  # Create a player
+  $.ajax({
+    url: 'http://localhost:3000/players',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+      player: {
+      username: 'Bob',
+      email: 'b@b.com',
+      password: 'password123'
+      }
+    },
+  }).done(function(data){
+    console.log(data);
+  }).fail(function(jqXHR, textStatus, errorThrow){
+    console.log(jqXHR, textStatus, errorThrow);
+  });
+
+  # Update player 4
+  $.ajax({
+      url: 'http://localhost:3000/players/4',
+      type: 'PATCH',
+      dataType: 'JSON',
+      data: {
+        player: {
+        username: 'D DUCK',
+        email: 'd@d.com',
+        password: 'password123'
+        }
+      },
+    }).done(function(data){
+      console.log(data);
+    }).fail(function(jqXHR, textStatus, errorThrow){
+      console.log(jqXHR, textStatus, errorThrow);
+    });
