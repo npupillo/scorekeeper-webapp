@@ -84,7 +84,7 @@ var showGame = (function(module){
   };//end calculatePlayerScores
 
   var renderHighchart = function(game_scores){
-    console.log("game_scores: ");
+    console.log("calculated game scores array ... : ");
     console.log(game_scores);
     $('#chart_hc').highcharts({
       chart: {

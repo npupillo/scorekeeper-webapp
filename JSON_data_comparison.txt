@@ -1,0 +1,63 @@
+//From: http://stackoverflow.com/questions/26532536/handlebars-how-to-get-sibling-value-inside-an-object
+
+JSON DATA:
+Magnetim.photos = {
+ facebook: {
+    albums: {
+      id:["id1","id2","id3","id4"],
+    albumName: ["n1","n2","n3","n4"]
+    }
+  },
+}
+
+HANDLEBARS:
+{{#each id}}
+  {{getAlbumName ../albumName @index}}
+{{/each}}
+
+
+Handlebars.registerHelper('getGameplayerId', function(gp_array, id) {
+    return gp_array[id];
+});
+
+
+====
+{{#each player}}
+  {{getGameplayerId ../gameplayers.@index.value}}
+{{/each}}
+
+http://localhost:3000/games/1
+game {
+  id: 1,
+  name: Mucka,
+  gameplayers: [
+    {
+      id: 1,
+      game_id: 1,
+      player_id: 1
+    },
+    {
+      id: 2,
+      game_id: 1,
+      player_id: 2
+    }
+  ],
+  players: [
+    {
+      id: 1,
+      username: Larry,
+      scores: [
+        {
+          id: 1,
+          points: 4,
+          game_id: 1
+        },
+        {
+          id: 4,
+          points: 7,
+          game_id: 1
+        }
+      ]
+    }
+  ]
+}
