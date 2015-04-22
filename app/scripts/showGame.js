@@ -109,7 +109,7 @@ var showGame = (function(module){
         lineColor: 'transparent',
         tickColor: 'transparent',
         title: {
-          text: "Score Totals"
+          text: ""
         },
         min: 0,
         labels: {
