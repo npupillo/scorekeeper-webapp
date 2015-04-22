@@ -24,5 +24,6 @@ body {
 #chart_d3,  {
   /*border: 1px solid red;*/
   /*float: right;*/
+  width: 400px;
 }
 

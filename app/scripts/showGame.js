@@ -136,12 +136,13 @@ var showGame = (function(module){
     var bardata = game_scores;
 
     //setup the margin like you would a css style
-    var margin = { top: 30, right: 30, bottom: 40, left: 50 }
+    // var margin = { top: 30, right: 30, bottom: 40, left: 50 };
+    var margin = { top: 30, right: 20, bottom: 30, left: 20 };
 
     //remove the dimensions of the margins above from the chart dimension
     var height = 300 - margin.top - margin.bottom,
         //now we can change the width to say 400 & the chart & boundaries scale accordingly
-        width = 400 - margin.left - margin.right,
+        width = 300 - margin.left - margin.right,
         barWidth = 50,
         barOffset = 5;
 
