@@ -17,15 +17,12 @@ body {
 #chart_hc {
   /*border: 1px solid red;*/
   float: left;
-  padding-right: 20px;
+  padding-right: 100px;
   width: 400px;
-  height: 400px;
+  height: 330px;
 }
 #chart_d3,  {
   /*border: 1px solid red;*/
-  border: 1px solid #545454;
+  /*float: right;*/
 }
 
-#d3-label {
-  float: right;
-}

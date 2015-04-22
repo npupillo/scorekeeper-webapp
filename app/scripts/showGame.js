@@ -38,9 +38,7 @@ var showGame = (function(module){
     var field = $('#input-field');
     console.log('field value: ' + field.val());
 
-
-
-
+    //Isolate gameplayer_id to create player score
     // $.ajax({
     //     url: 'http://localhost:3000/scores',
     //     type: 'POST',
@@ -94,13 +92,28 @@ var showGame = (function(module){
         text: "Game Scores"
       },
       xAxis: {
+        gridLineWidth: 0,
+        gridLineColor: 'transparent',
+        lineColor: 'transparent',
+        tickColor: 'transparent',
         title: {
           text: "Players"
+        },
+        labels: {
+          enabled: false
         }
       },
       yAxis: {
+        gridLineWidth: 0,
+        gridLineColor: 'transparent',
+        lineColor: 'transparent',
+        tickColor: 'transparent',
         title: {
           text: "Score Totals"
+        },
+        min: 0,
+        labels: {
+            enabled: false
         }
       },
       plotOptions:{
@@ -115,7 +128,6 @@ var showGame = (function(module){
         name: 'Game Scores',
         colorByPoint: true,
         data: game_scores
-        // data: [ ['Jack', 66], ['Jane', 77], ['Joe', 88] ],
       }]
     });
   }
@@ -124,12 +136,12 @@ var showGame = (function(module){
     var bardata = game_scores;
 
     //setup the margin like you would a css style
-    var margin = { top: 10, right: 10, bottom: 10, left: 10 }
+    var margin = { top: 30, right: 30, bottom: 40, left: 50 }
 
     //remove the dimensions of the margins above from the chart dimension
-    var height = 400 - margin.top - margin.bottom,
+    var height = 300 - margin.top - margin.bottom,
         //now we can change the width to say 400 & the chart & boundaries scale accordingly
-        width = 600 - margin.left - margin.right,
+        width = 400 - margin.left - margin.right,
         barWidth = 50,
         barOffset = 5;
 
@@ -160,7 +172,7 @@ var showGame = (function(module){
         .style('background', '#E9E9E9')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-      .append('g')
+        .append('g')
         //move the graphic, by an x position of margin.left & by y position of margin.top
         .attr('transform', 'translate('+ margin.left + ', ' + margin.top + ')')
         .selectAll('rect').data(bardata)
@@ -185,7 +197,7 @@ var showGame = (function(module){
         tempColor = this.style.fill;
         d3.select(this)
           .style('opacity', .5)
-          .style('fill', 'yellow')
+          // .style('fill', 'yellow')
         })
       .on('mouseout', function(d){
         d3.select(this)
