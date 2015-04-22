@@ -11,10 +11,12 @@
   {{#each players}}
     <tr>
       <td>
-      <form id="points-form">
-        <span id=user-{{id}}>{{username}}</span>
-          <input type="text" size="3">
-          <button id="submit-points" type="submit">+</button>
+      <form class=points-form>
+        <span>
+          {{username}}
+        </span>
+          <input type=text size=3 id=field-{{id}} data-userid={{id}}>
+          <button class="submit-btn" type="submit">+</button>
         </form>
       <td>
       {{#each scores}}
@@ -25,10 +27,15 @@
     </tr>
   {{/each}}
 
+
 </table>
 {{/game}}
 
-<div id="chart_container" class="all_charts"></div>
+<div id="chart_hc" class="all_charts"></div>
+
+<div>
+  <div id="chart_d3" class="all_charts"></div>
+</div>
 
 </script>
 

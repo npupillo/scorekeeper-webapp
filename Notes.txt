@@ -2,6 +2,7 @@ Installing additional libraries:
   $ bower install backbone --save
   $ bower install handlebars --save
   $ bower install highcharts-release --save
+  $ bower install d3 --save
 
 showGame.js:
   ** Troubleshooting, works in JS console: iterate each player then each player's score & keep only current game's scores
@@ -32,3 +33,11 @@ Resources:
   Populate Highcharts with JSON data using jQuery
   http://karanbalkar.com/2014/06/populate-highcharts-with-json-data-using-jquery/
 
+  Data Attributes in HTML and jQuery
+  http://www.broken-links.com/2010/11/18/data-attributes-in-html-and-jquery/
+
+  jQuery and data-attributes to handle all ajax calls
+  http://stackoverflow.com/questions/6908592/jquery-and-data-attributes-to-handle-all-ajax-calls
+
+  Handlebars how to get sibling value inside an object
+  http://stackoverflow.com/questions/26532536/handlebars-how-to-get-sibling-value-inside-an-object

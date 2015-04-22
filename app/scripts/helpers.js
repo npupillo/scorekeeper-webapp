@@ -69,3 +69,12 @@ Handlebars.registerHelper('sum', function(){
   }
   return sum;
 });
+
+
+//test in showGame.html
+// {{points}}/{{getGameplayerId ../../gameplayers @index}}
+
+Handlebars.registerHelper('getGameplayerId', function(gp_array, id) {
+    return gp_array[id];
+});
+

@@ -103,14 +103,14 @@ SCORES:
   });
 
 ======
-  # Create a score - use gameplayer_id
+  # Create a score using points & gameplayer_id
   $.ajax({
       url: 'http://localhost:3000/scores',
       type: 'POST',
       dataType: 'JSON',
       data: {
         score: {
-          points: 5,
+          points: 1,
           gameplayer_id: 7,
         }
       },
