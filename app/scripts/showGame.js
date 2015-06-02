@@ -2,25 +2,12 @@
 
 var showGame = (function(module){
 
-  //To get only the current game's scores, iterate each player then each player's score to match the current score's game_id with the game.id
-  var filterScores = function(game){
-    var players = game.players;
-    players.forEach(function(player){
-      player.scores.forEach(function(score, index, scores_array){
-        if (score.game_id !== game.id){
-          // console.log(score.game_id);
-          scores_array.splice(index, 1);
-        }
-      })
-    });
-    renderScores(game);
-    calculatePlayerScores(game);
-  };
-
-  var renderScores = function(data){
+  var renderScores = function(gameData){
+    console.log('inside renderScores, the gameData is:');
+    console.log(gameData);
       var template = Handlebars.compile($('#one_game_template').html());
       $('#content1').html(template({
-        game: data
+        game: gameData
       }));
 
     //initialize points form submit button
@@ -30,66 +17,51 @@ var showGame = (function(module){
       submitPoints(event);
     });
 
+  renderHighchartBar();
+  renderD3chart();
+  renderHighchartLine(gameData);
+
   };//end renderScores
 
-  var submitPoints = function(event){
-    event.preventDefault();
-// debugger;
-    var field = $('#input-field');
-    console.log('field value: ' + field.val());
-
-    //Isolate gameplayer_id to create player score
-    // $.ajax({
-    //     url: 'http://localhost:3000/scores',
-    //     type: 'POST',
-    //     dataType: 'JSON',
-    //     data: {
-    //       score: {
-    //         points: 1,
-    //         gameplayer_id: 7,
-    //       }
-    //     },
-    // }).done(function(data){
-    //   console.log(data);
-    // }).fail(function(jqXHR, textStatus, errorThrow){
-    //   console.log(jqXHR, textStatus, errorThrow);
-    // });
-
-  }
-
-  var calculatePlayerScores = function(game){
-// debugger;
+  //Calculate current player totals
+  // var calculatePlayerScores = function(game){
     //For each player, push the username to the array
     //AND For each player's score, get the sum & add it to the array
     //=> [ Larry, 11, Curly 9, Moe, 7]
-    var players = game.players;
-    var new_array = [];
+    // game = [ 11, 9, 7];
+    // var players = game.players;
+    // var newArray = [];
 
     //get each player's username and push to array
-    players.forEach(function(player){
-      // new_array.push(player.username);
+    // players.forEach(function(player){
+      // newArray.push(player.username);
 
-      var player_scores = player.scores;
-        //sum each player's scores and push to array
-        var sum = 0;
-        player.scores.forEach(function(score, index, scores_array){
-          sum = sum + score.points;
-        });
-        new_array.push(sum);
-    });
-    renderHighchart(new_array);
-    renderD3chart(new_array);
-  };//end calculatePlayerScores
+    //   var playerScores = player.scores;
+    //     //sum each player's scores and push to array
+    //     var sum = 0;
+    //     player.scores.forEach(function(score, index, scoresArray){
+    //       sum = sum + score.points;
+    //     });
+    //     newArray.push(sum);
+    // });
+    // renderHighchartBar(newArray);
+    // renderD3chart(newArray);
+  // };//end calculatePlayerScores
 
-  var renderHighchart = function(game_scores){
-    console.log("calculated game scores array ... : ");
-    console.log(game_scores);
-    $('#chart_hc').highcharts({
+  var renderHighchartBar = function(gameScores){
+  // !!!
+  // Hard coded sample data
+  gameScores = [1,4,2];
+
+
+    console.log('renderHighchartBar: calculated game scores array ... : ');
+    console.log(gameScores);
+    $('#chart_hc_bar').highcharts({
       chart: {
-        type: "column"
+        type: 'column'
       },
       title: {
-        text: "Game Scores"
+        text: 'Game Scores'
       },
       xAxis: {
         gridLineWidth: 0,
@@ -97,7 +69,7 @@ var showGame = (function(module){
         lineColor: 'transparent',
         tickColor: 'transparent',
         title: {
-          text: "Players"
+          text: 'Players'
         },
         labels: {
           enabled: false
@@ -109,7 +81,7 @@ var showGame = (function(module){
         lineColor: 'transparent',
         tickColor: 'transparent',
         title: {
-          text: ""
+          text: ''
         },
         min: 0,
         labels: {
@@ -127,13 +99,17 @@ var showGame = (function(module){
       series: [{
         name: 'Game Scores',
         colorByPoint: true,
-        data: game_scores
+        data: gameScores
       }]
     });
-  }
+  };
 
-  var renderD3chart = function(game_scores){
-    var bardata = game_scores;
+  var renderD3chart = function(gameScores){
+    // !!!
+    // Hard coded sample data
+    gameScores = [1,4,2];
+
+    var bardata = gameScores;
 
     //setup the margin like you would a css style
     // var margin = { top: 30, right: 30, bottom: 40, left: 50 };
@@ -150,25 +126,25 @@ var showGame = (function(module){
 
     var colors = d3.scale.linear()
         .domain([0, bardata.length * .33, bardata.length * .66, bardata.length])
-        .range(['#B58929','#C61C6F', '#268BD2','#85992C']) //red, purple, blue, green
+        .range(['#B58929','#C61C6F', '#268BD2','#85992C']); //red, purple, blue, green
 
     var yScale = d3.scale.linear()
         .domain([0, d3.max(bardata)])
-        .range([0, height])
+        .range([0, height]);
 
     var xScale = d3.scale.ordinal()
         .domain(d3.range(0,bardata.length))
         //we can pass .2 here to make space between the bars
-        .rangeBands([0,width], .2)
+        .rangeBands([0,width], .2);
 
     var tooltip = d3.select('body')
         .append('div')
           .style('position', 'absolute')
           .style('padding', '0 10px')
           .style('background', 'white')
-          .style('opacity', 0) //start at 0
+          .style('opacity', 0); //start at 0
 
-    var myChart = d3.select('#chart_d3').append('svg')
+    var myChart = d3.select('#chart_d3_bar').append('svg')
       //add a style attr so we can see the diffc betw the svg graphic & the chart
         .style('background', '#E9E9E9')
         .attr('width', width + margin.left + margin.right)
@@ -179,7 +155,7 @@ var showGame = (function(module){
         .selectAll('rect').data(bardata)
         .enter().append('rect')
           .style('fill', function(d,i){
-            return colors(i)
+            return colors(i);
           })
           .attr('width', xScale.rangeBand())
           .attr('x', function(d, i){
@@ -224,50 +200,124 @@ var showGame = (function(module){
       .range([height, 0])
 
     //setup the axis method
-    var vAxis = d3.svg.axis()
-        .scale(vGuideScale)
-        .orient('left')
-        .ticks(10)
+    // var vAxis = d3.svg.axis()
+    //     .scale(vGuideScale)
+    //     .orient('left')
+    //     .ticks(10)
 
-    var vGuide = d3.select('svg').append('g')
-        vAxis(vGuide)
-        //position it 35 pixels from the left & 0 pixels from the top, so it gets moved w/ the margins
-        vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
-        vGuide.selectAll('path')
-          .style({ fill: 'none', stroke: '#000' })
-        vGuide.selectAll('line')
-          .style({ stroke: '#000' })
+    // var vGuide = d3.select('svg').append('g')
+    //     vAxis(vGuide)
+    //     //position it 35 pixels from the left & 0 pixels from the top, so it gets moved w/ the margins
+    //     vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
+    //     vGuide.selectAll('path')
+    //       .style({ fill: 'none', stroke: '#000' })
+    //     vGuide.selectAll('line')
+    //       .style({ stroke: '#000' })
 
-    var hAxis = d3.svg.axis()
-        .scale(xScale)
-        .orient('bottom')
-        .tickValues(xScale.domain().filter(function(d,i){
-          return !(i % (bardata.length/5));
-        }))
+    // var hAxis = d3.svg.axis()
+    //     .scale(xScale)
+    //     .orient('bottom')
+    //     .tickValues(xScale.domain().filter(function(d,i){
+    //       return !(i % (bardata.length/5));
+    //     }))
 
-    var hGuide = d3.select('svg').append('g')
-        hAxis(hGuide)
-        //also add the height here
-        hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')')
-        hGuide.selectAll('path')
-          .style({ fill: 'none', stroke: '#000' })
-        hGuide.selectAll('line')
-          .style({ stroke: '#000' })
-  }
+    // var hGuide = d3.select('svg').append('g')
+    //     hAxis(hGuide)
+    //     //also add the height here
+    //     hGuide.attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')')
+    //     hGuide.selectAll('path')
+    //       .style({ fill: 'none', stroke: '#000' })
+    //     hGuide.selectAll('line')
+    //       .style({ stroke: '#000' })
+  }; //end renderD3chart
 
+// !!!
+var renderHighchartLine = function(gameScores){
+  var seriesArr = gameScores.game_scores;
+  //Hard coded sample data
+  // var seriesArr = [
+  //   {name: 'Player 1', data: [7,6,7]},
+  //   {name: 'Player 2', data: [8,7,8]},
+  //   {name: 'Player 3', data: [9,8,9]}
+  //   ];
 
+  console.log('renderHighchartLine: seriesArr ...: ');
+  console.log(seriesArr);
+
+  $('#chart_hc_line').highcharts({
+    title: {
+        text: 'Game Scores',
+        x: -20 //center
+    },
+    subtitle: {
+        text: 'per Round',
+        x: -20
+    },
+    xAxis: {
+        categories: [],
+        title: {
+          text: 'Rounds'
+        }
+
+    },
+    yAxis: {
+        title: {
+            text: 'Points'
+        },
+        plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+        }]
+    },
+    tooltip: {
+        valueSuffix: ''
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+    },
+    series: seriesArr
+    // series: gameScores
+  });
+}; //end renderHighchartLine
+
+  var submitPoints = function(event){
+    event.preventDefault();
+    var field = $('#input-field');
+    console.log('field value: ' + field.val());
+
+    //Isolate gameplayer_id to create player score
+    // $.ajax({
+    //     url: 'http://localhost:3000/scores',
+    //     type: 'POST',
+    //     dataType: 'JSON',
+    //     data: {
+    //       score: {
+    //         points: 1,
+    //         gameplayer_id: 7,
+    //       }
+    //     },
+    // }).done(function(data){
+    //   console.log(data);
+    // }).fail(function(jqXHR, textStatus, errorThrow){
+    //   console.log(jqXHR, textStatus, errorThrow);
+    // });
+  }; //end submitPoints
 
 
   module.init = function(id){
-    // console.log('inside showGame.init , the game id is: ' + id);
+    console.log('inside init, the game id is: ' + id);
     $.ajax({
     url: router.host + '/games/' + id,
     type: 'GET',
     dataType: 'JSON'
     }).done(function(data){
-      // console.log("ajax GET game : " + id);
-      console.log(data);
-      filterScores(data);
+      // console.log('ajax GET game: ' + id);
+      // console.log(data);
+      renderScores(data);
     }).fail(function(jqXHR, textStatus, errorThrow){
       console.log(jqXHR, textStatus, errorThrow);
     });

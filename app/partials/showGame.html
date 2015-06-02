@@ -1,43 +1,43 @@
 <script id="one_game_template" type="text/x-handlebars-template">
 
 {{#game}}
-<table class="table table-striped">
 
   <h3>Game: {{name}}</h3>
   <h5>Start Date: {{start_date}}</h5>
   <h5>End Date: {{end_date}}</h5>
   <h5>Status: {{status}}</h5>
 
-  {{#each players}}
+<table class="table table-striped">
+  {{#each game_scores}}
     <tr>
       <td>
-      <form class=points-form>
         <span>
-          {{username}}
+          {{name}}
         </span>
+      </td>
+      <td>
+        <form class=points-form>
           <input type=text size=3 id=field-{{id}} data-userid={{id}}>
           <button class="submit-btn" type="submit">+</button>
         </form>
       <td>
-      {{#each scores}}
+
       <td>
-        {{points}}
+        {{data}}
       </td>
-      {{/each}}
+
     </tr>
   {{/each}}
-
-
 </table>
 {{/game}}
 
 
-  <div id="chart_hc" class="all_charts"></div>
-
-  <div id="chart_d3">
-    <h5>D3</h5>
-    <div class="all_charts"></div>
+  <div id="chart_hc_bar" class="all_charts"></div>
+  <div id="chart_d3_bar" class="all_charts">
+    <h5>D3: bar chart</h5>
   </div>
+
+  <div id="chart_hc_line" class="all_charts"></div>
 
 
 </script>

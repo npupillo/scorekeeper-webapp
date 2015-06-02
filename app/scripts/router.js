@@ -7,8 +7,8 @@ var trace = function(){
 };
 
 var router = (function(module){
-  module.host = "http://scorekeeper-api.herokuapp.com";
-  // module.host = "http://localhost:3000";
+  // module.host = "http://scorekeeper-api.herokuapp.com";
+  module.host = "http://localhost:3000";
 
   var Router = Backbone.Router.extend({
     routes: {

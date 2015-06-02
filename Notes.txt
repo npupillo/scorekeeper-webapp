@@ -41,3 +41,7 @@ Resources:
 
   Handlebars how to get sibling value inside an object
   http://stackoverflow.com/questions/26532536/handlebars-how-to-get-sibling-value-inside-an-object
+
+  Highcharts - line chart JSfiddle:
+  http://jsfiddle.net/sgearhart2/9P5fC/
+  http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/line-basic/
