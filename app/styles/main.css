@@ -30,5 +30,7 @@ body {
 
 #chart_hc_line {
   margin: 40px;
+  width: 800px;
+  height: 400px;
   border-top: 1px solid black;
 }

@@ -8,16 +8,20 @@
   <h5>Status: {{status}}</h5>
 
 <table class="table table-striped">
+<thead>
+  <th>Name</th>
+  <th>Total</th>
+  <th>Add Points</th>
+  <th>Scores</th>
+</thead>
   {{#each game_scores}}
     <tr>
-      <td>
-        <span>{{name}}: </span>
-        <span>{{tally}} points</span>
-      </td>
+      <td>{{name}}</td>
+      <td>{{tally}}</td>
       <td>
         <form class=points-form>
-          <input type=text size=3 id=field-{{id}} data-userid={{id}}>
-          <button class="submit-btn" type="submit">+</button>
+          <input type=text size=3 id=field_id-{{player_id}} class=point-field>
+          <button class="submit-btn" type="submit" data-game_id={{../id}} data-player_id={{player_id}}>+</button>
         </form>
       <td>
 
@@ -37,6 +41,3 @@
 
 
 </script>
-
-
-

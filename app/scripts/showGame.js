@@ -3,8 +3,8 @@
 var showGame = (function(module){
 
   var renderScores = function(gameData){
-    // console.log('inside renderScores, the gameData is:');
-    // console.log(gameData);
+    console.log('inside renderScores, the gameData is:');
+    console.log(gameData);
 
       var template = Handlebars.compile($('#one_game_template').html());
       $('#content1').html(template({
@@ -12,16 +12,54 @@ var showGame = (function(module){
       }));
 
     //initialize points form submit button
-    $('form.points-form').on('submit', function(event){
+    $('.submit-btn').on('click', function(event){
       event.preventDefault();
-      // console.log('button clicked');
-      submitPoints(event);
+      console.log('button clicked');
+
+      var game_id = $(this).data('game_id')
+      // console.log("This game_id is: " + game_id);
+      var player_id = $(this).data('player_id')
+      // console.log("This player_id is: " + player_id);
+
+      submitPoints(event, game_id, player_id);
     });
 
   calculatePlayerScores(gameData);
   renderHighchartLine(gameData);
 
   };//end renderScores
+
+  var submitPoints = function(event, game_id, player_id){
+    event.preventDefault();
+
+    var new_points = $('#field_id-' + player_id).val();
+    console.log('This input value is: ' + new_points);
+    console.log('This game_id is: ' + game_id);
+    console.log('This player_id is: ' + player_id);
+
+    $.ajax({
+        url: 'http://localhost:3000/scores',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {
+          score: {
+            points: new_points,
+            game_id: game_id,
+            player_id: player_id
+          }
+        },
+    }).done(function(data){
+      // console.log(data);
+      location.reload();
+    }).fail(function(jqXHR, textStatus, errorThrow){
+      console.log(jqXHR, textStatus, errorThrow);
+    });
+
+    // re-render the page
+
+  }; //end submitPoints
+
+
 
   //Calculate current player totals
   var calculatePlayerScores = function(gameData){
@@ -270,30 +308,6 @@ var renderHighchartLine = function(gameScores){
     // series: gameScores
   });
 }; //end renderHighchartLine
-
-  var submitPoints = function(event){
-    event.preventDefault();
-    var field = $('#input-field');
-    console.log('field value: ' + field.val());
-
-    //Isolate gameplayer_id to create player score
-    // $.ajax({
-    //     url: 'http://localhost:3000/scores',
-    //     type: 'POST',
-    //     dataType: 'JSON',
-    //     data: {
-    //       score: {
-    //         points: 1,
-    //         gameplayer_id: 7,
-    //       }
-    //     },
-    // }).done(function(data){
-    //   console.log(data);
-    // }).fail(function(jqXHR, textStatus, errorThrow){
-    //   console.log(jqXHR, textStatus, errorThrow);
-    // });
-  }; //end submitPoints
-
 
   module.init = function(id){
     console.log('inside init, the game id is: ' + id);
