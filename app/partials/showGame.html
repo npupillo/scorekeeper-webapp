@@ -11,9 +11,8 @@
   {{#each game_scores}}
     <tr>
       <td>
-        <span>
-          {{name}}
-        </span>
+        <span>{{name}}: </span>
+        <span>{{tally}} points</span>
       </td>
       <td>
         <form class=points-form>
@@ -33,10 +32,7 @@
 
 
   <div id="chart_hc_bar" class="all_charts"></div>
-  <div id="chart_d3_bar" class="all_charts">
-    <h5>D3: bar chart</h5>
-  </div>
-
+  <div id="chart_d3_bar" class="all_charts"></div>
   <div id="chart_hc_line" class="all_charts"></div>
 
 

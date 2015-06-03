@@ -3,8 +3,9 @@
 var showGame = (function(module){
 
   var renderScores = function(gameData){
-    console.log('inside renderScores, the gameData is:');
-    console.log(gameData);
+    // console.log('inside renderScores, the gameData is:');
+    // console.log(gameData);
+
       var template = Handlebars.compile($('#one_game_template').html());
       $('#content1').html(template({
         game: gameData
@@ -17,45 +18,32 @@ var showGame = (function(module){
       submitPoints(event);
     });
 
-  renderHighchartBar();
-  renderD3chart();
+  calculatePlayerScores(gameData);
   renderHighchartLine(gameData);
 
   };//end renderScores
 
   //Calculate current player totals
-  // var calculatePlayerScores = function(game){
-    //For each player, push the username to the array
-    //AND For each player's score, get the sum & add it to the array
-    //=> [ Larry, 11, Curly 9, Moe, 7]
-    // game = [ 11, 9, 7];
-    // var players = game.players;
-    // var newArray = [];
+  var calculatePlayerScores = function(gameData){
+    //For each player, push the player name & tally to newArray
+    var newArray = [];
 
-    //get each player's username and push to array
-    // players.forEach(function(player){
-      // newArray.push(player.username);
-
-    //   var playerScores = player.scores;
-    //     //sum each player's scores and push to array
-    //     var sum = 0;
-    //     player.scores.forEach(function(score, index, scoresArray){
-    //       sum = sum + score.points;
-    //     });
-    //     newArray.push(sum);
-    // });
-    // renderHighchartBar(newArray);
+    gameData.game_scores.forEach(function(score_obj){
+      newArray.push(score_obj.name);
+      newArray.push(score_obj.tally);
+    })
+    renderHighchartBar(newArray);
     // renderD3chart(newArray);
-  // };//end calculatePlayerScores
+
+  };//end calculatePlayerScores
 
   var renderHighchartBar = function(gameScores){
-  // !!!
   // Hard coded sample data
-  gameScores = [1,4,2];
+  // gameScores = [1,4,2];
 
+    // console.log('renderHighchartBar: calculated game scores array ... : ');
+    // console.log(gameScores);
 
-    console.log('renderHighchartBar: calculated game scores array ... : ');
-    console.log(gameScores);
     $('#chart_hc_bar').highcharts({
       chart: {
         type: 'column'
@@ -105,9 +93,8 @@ var showGame = (function(module){
   };
 
   var renderD3chart = function(gameScores){
-    // !!!
     // Hard coded sample data
-    gameScores = [1,4,2];
+    // gameScores = [1,4,2];
 
     var bardata = gameScores;
 
