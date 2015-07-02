@@ -3,8 +3,8 @@
 var showGame = (function(module){
 
   var renderScores = function(gameData){
-    console.log('inside renderScores, the gameData is:');
-    console.log(gameData);
+    // console.log('inside renderScores, the gameData is:');
+    // console.log(gameData);
 
       var template = Handlebars.compile($('#one_game_template').html());
       $('#content1').html(template({
@@ -71,7 +71,7 @@ var showGame = (function(module){
       newArray.push(score_obj.tally);
     })
     renderHighchartBar(newArray);
-    // renderD3chart(newArray);
+    renderD3chart(newArray);
 
   };//end calculatePlayerScores
 
@@ -133,8 +133,15 @@ var showGame = (function(module){
   var renderD3chart = function(gameScores){
     // Hard coded sample data
     // gameScores = [1,4,2];
+    console.log(gameScores);
+    var bardata = [];
 
-    var bardata = gameScores;
+    //extract just the numbers from the gameScores (odd indexes)
+    for(var i = 0; i < gameScores.length; i++){
+      if (i % 2 !== 0) {
+        bardata.push(gameScores[i]);
+      }
+    }
 
     //setup the margin like you would a css style
     // var margin = { top: 30, right: 30, bottom: 40, left: 50 };
@@ -224,7 +231,7 @@ var showGame = (function(module){
       .domain([0, d3.max(bardata)])
       .range([height, 0])
 
-    //setup the axis method
+    // setup the axis method
     // var vAxis = d3.svg.axis()
     //     .scale(vGuideScale)
     //     .orient('left')
@@ -266,8 +273,8 @@ var renderHighchartLine = function(gameScores){
   //   {name: 'Player 3', data: [9,8,9]}
   //   ];
 
-  console.log('renderHighchartLine: seriesArr ...: ');
-  console.log(seriesArr);
+  // console.log('renderHighchartLine: seriesArr ...: ');
+  // console.log(seriesArr);
 
   $('#chart_hc_line').highcharts({
     title: {
@@ -310,7 +317,7 @@ var renderHighchartLine = function(gameScores){
 }; //end renderHighchartLine
 
   module.init = function(id){
-    console.log('inside init, the game id is: ' + id);
+    // console.log('inside init, the game id is: ' + id);
     $.ajax({
     url: router.host + '/games/' + id,
     type: 'GET',
